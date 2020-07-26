@@ -1,1 +1,3 @@
 venv/
+plscraper/start.bat
+plscraper/__pycache__/
