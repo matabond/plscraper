@@ -6,13 +6,17 @@ Command-line application that, given a list of website URLs as input, visits the
 
 ```bash
 pip install -r requirements.txt
+or with docker
+docker build --tag plscraper .
 ```
 
 ## Usage
 
 ```python
-cat data.txt | python3 -m plscraper
-cat data.txt | docker run -i plscraper
+cd plscraper
+cat ../data/data.txt | python3 -m plscraper
+or with docker
+cat data/data.txt | docker run -i plscraper
 
 ```
 
