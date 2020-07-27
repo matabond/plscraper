@@ -53,6 +53,8 @@ def clean_phone_numbers(phone_numbers_from_href, phone_numbers_from_text):
     phone_digits = []
     cleaned_phone_numbers = []
 
+    # for phone numbers from website text we need minimum 9 digits
+    # to discard non valid phone numbers
     for phone_number in phone_numbers_from_text:
         phone_digit = re.sub("[^\d]", "", phone_number)
         if phone_digit not in phone_digits and len(phone_digit) > 8:
@@ -61,6 +63,8 @@ def clean_phone_numbers(phone_numbers_from_href, phone_numbers_from_text):
                 re.sub("[^\d\(\)\+]", " ", phone_number).strip()
             )
 
+    # for phone number from href we need minimum 6 digits
+    # to discard non valid phone numbers
     for phone_number in phone_numbers_from_href:
         phone_digit = re.sub("[^\d]", "", phone_number)
         if phone_digit not in phone_digits and len(phone_digit) > 5:
@@ -69,6 +73,13 @@ def clean_phone_numbers(phone_numbers_from_href, phone_numbers_from_text):
                 re.sub("[^\d\(\)\+]", " ", phone_number).strip()
             )
 
+    # just in case, if parentheses are not paired, remove them
+    cleaned_phone_numbers = [
+        re.sub("[\(|\)]", "", phone_number).strip()
+        if phone_number.count("(") != phone_number.count(")")
+        else phone_number
+        for phone_number in cleaned_phone_numbers
+    ]
     return cleaned_phone_numbers
 
 
